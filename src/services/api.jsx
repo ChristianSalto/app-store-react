@@ -28,3 +28,13 @@ export const addProductToCart = (productData) => {
         return data;
     });
 };
+
+
+export const getProductToCart = () => {
+    return axios.get(`${URL}cart`).then(response => {
+        return response;
+    }).catch(error => {
+        const data = error.response
+        return data;
+    });
+};
