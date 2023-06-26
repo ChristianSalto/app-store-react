@@ -13,8 +13,22 @@ const MainPage = () => {
 
     useEffect(() => {
         const getDataProduct = async () => {
-            const res = await getProduct();
-            setProducts(res)
+            try {
+                const res = await getProduct();
+                setProducts(res)
+
+                if (res === undefined) {
+                    toast.info(<div>You must have the server up <a href="https://github.com/ChristianSalto/app-store-node">https://github.com/ChristianSalto/app-store-node</a></div>, {
+                        autoClose: 10000,
+                        style: {
+                            width: '500px',
+                        },
+                    });
+                }
+
+            } catch (error) {
+                throw new Error(error)
+            }
         }
 
         getDataProduct();
@@ -31,7 +45,7 @@ const MainPage = () => {
 
         if (res.data.error) {
             toast.error(res.data.error);
-        }else{
+        } else {
             toast.success('Product added to cart successfully');
         }
     }
